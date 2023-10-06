@@ -1,0 +1,212 @@
+function checkCashRegister(price, cash, cid) {
+    let avCur = cid.concat();//Cash in the drawer
+    let cashToChange = cash - price;// Change sum
+    let remainingCashToChange = cashToChange.valueOf()
+  
+    let totalCashInDrawer = 0;
+    //Result to print
+     let result = {
+      status: "",
+      change: []
+    }
+  
+  
+   //--------- 
+    // Calculate all avaliable cash in drawer
+    function cashInDrawer (avCur) {
+      let sum = 0;
+      avCur.forEach(myFunction)
+        function myFunction (item) { 
+          sum += item[1]
+          };
+      return totalCashInDrawer = sum.toFixed(2);
+    };
+    cashInDrawer(avCur); // Calls the function
+  
+  
+  //--------
+  // Calculate the cash after object
+  
+  function remCash (index) {
+    let sum = 0;
+    for (let i = index; i >= 0 ; i--){
+      sum = sum + avCur[i][1]
+    }
+    return sum.toFixed(2);
+  }
+  
+  //------------
+  // set the status of cash drawer
+  if ((totalCashInDrawer - cashToChange) < 0 ) {
+    result.status = "INSUFFICIENT_FUNDS"
+  
+  } else if (totalCashInDrawer == cashToChange) {
+    result.status = "CLOSED";
+    result.change = avCur;
+  } else {
+    result.status = "OPEN"
+  };
+  
+  //-----------
+  // Checks if the currency is already in the result.change
+  function checkChange (name) {
+  
+  if (result.change.length > 0) {
+  let status = false;
+    for (let i = 0; i < result.change.length; i++){
+      if (result.change[i].includes(name) === true){
+       return status = true;
+      }
+      }
+      return status 
+  } else {
+      return false;
+  }
+  };
+  
+  //------
+  // Check index of 
+  function checkIndex (name) {
+  let index = 0;
+  if (result.change.length > 0) {
+    for (let i = 0; i < result.change.length; i++) {
+      if (result.change[i][0]  === name){
+      return i;
+      }
+      }
+      return index;
+      }
+  };
+  
+  
+  //------
+  // Actualize the drawer 
+  function rem (position, size) {
+  avCur[position][1] -= size;
+  remainingCashToChange -= size;
+  }
+  
+  //----
+  //Fill the result - change
+  
+  while (remainingCashToChange >= 0) {
+  
+  if (remainingCashToChange - 100 >= 0 && avCur[8][1] > 0 && remCash(8) > remainingCashToChange){
+  
+      if ( checkChange("ONE HUNDRED") === false){
+        result.change.push(["ONE HUNDRED", 100])
+        rem(8,100)
+        
+      
+      } else if (checkChange("ONE HUNDRED") === true){
+          let index = checkIndex("ONE HUNDRED");
+          result.change[index][1] += 100;
+          rem(8, 100)
+      }
+  } else if (remainingCashToChange - 20 >= 0 && avCur[7][1] > 0 && remCash(7) > remainingCashToChange){
+    console.log(remainingCashToChange)
+        if (checkChange("TWENTY") === false){
+          result.change.push(["TWENTY", 20])
+          rem(7, 20)
+      console.log(remainingCashToChange)
+      } else if (checkChange("TWENTY") === true){
+          let index = checkIndex("TWENTY");
+          result.change[index][1] += 20;
+          rem(7, 20)
+          console.log(remainingCashToChange)
+      }
+  } else if (remainingCashToChange - 10 >= 0 && avCur[6][1] > 0 && remCash(6) > remainingCashToChange){
+    
+        if (checkChange("TEN") === false){
+          result.change.push(["TEN", 10])
+          rem(6, 10)
+      
+      } else if (checkChange("TEN") === true){
+          let index = checkIndex("TEN");
+          result.change[index][1] += 10;
+          rem(6, 10)
+      }
+  } else if (remainingCashToChange - 5 >= 0 && avCur[5][1] > 0 && remCash(5) > remainingCashToChange){
+    
+        if (checkChange("FIVE") === false){
+          result.change.push(["FIVE", 5])
+          rem(5, 5)
+      
+      } else if (checkChange("FIVE") === true){
+          let index = checkIndex("FIVE");
+          result.change[index][1] += 5;
+          rem(5, 5)
+      }
+  }else if (remainingCashToChange - 1 >= 0 && avCur[4][1] > 0 && remCash(4) > remainingCashToChange){
+    
+        if (checkChange("ONE") === false){
+          result.change.push(["ONE", 1])
+          rem(4, 1)
+      
+      } else if (checkChange("ONE") === true){
+          let index = checkIndex("ONE");
+          result.change[index][1] += 1;
+          rem(4, 1)
+      }
+  }else if (remainingCashToChange - 0.25 >= 0 && avCur[3][1] > 0 && remCash(3) >= remainingCashToChange){
+    
+        if (checkChange("QUARTER") === false){
+          result.change.push(["QUARTER", 0.25])
+          rem(3, 0.25)
+      
+      } else if (checkChange("QUARTER") === true){
+          let index = checkIndex("QUARTER");
+          result.change[index][1] += 0.25;
+          rem(3, 0.25)
+      }
+    } else if (remainingCashToChange - 0.1 >= 0 && avCur[2][1] > 0 && remCash(2) > remainingCashToChange){
+    
+        if (checkChange("DIME") === false){
+          result.change.push(["DIME", 0.1])
+          rem(2, 0.1)
+      
+      } else if (checkChange("DIME") === true){
+          let index = checkIndex("DIME");
+          result.change[index][1] += 0.1;
+          rem(2, 0.1)
+      }
+    }else if (remainingCashToChange - 0.05 >= 0 && avCur[1][1] > 0 && remCash(1) > remainingCashToChange){
+    console.log("works")
+        if (checkChange("NICKEL") === false){
+          result.change.push(["NICKEL", 0.05])
+          rem(1, 0.05)
+      
+      } else if (checkChange("NICKEL") === true){
+          let index = checkIndex("NICKEL");
+          result.change[index][1] += 0.05;
+          rem(1, 0.05)
+      }
+    } else if (remainingCashToChange.toFixed(2) - 0.01 >= 0 && avCur[0][1] > 0 && remCash(1) >= remainingCashToChange){
+    
+  
+        if (checkChange("PENNY") === false){
+          result.change.push(["PENNY", 0.01])
+          rem(0, 0.01)
+      
+      } else if (checkChange("PENNY") === true){
+          let index = checkIndex("PENNY");
+          result.change[index][1] += 0.01;
+          rem(0, 0.01)
+      } 
+      } else if (remainingCashToChange > 0 && totalCashInDrawer === 0) {
+          result.status = "INSUFFICIENT_FUNDS"
+          result.change = [];
+  
+   }else if (remainingCashToChange > 0 && totalCashInDrawer > 0) {
+          result.status = "INSUFFICIENT_FUNDS"
+          result.change = [];
+         
+   }
+    } 
+    
+    return result;
+    
+  }
+  
+  
+  checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
